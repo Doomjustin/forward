@@ -1,5 +1,8 @@
-#ifndef FORWARD_NONCOPYABLE_H
-#define FORWARD_NONCOPYABLE_H
+#ifndef FORWARD_UTILITY_H
+#define FORWARD_UTILITY_H
+
+#include <type_traits>
+
 
 namespace fwd {
 
@@ -17,6 +20,13 @@ protected:
     NonCopyable() = default;
 };
 
+
+template<class Enum>
+constexpr std::underlying_type_t<Enum> to_underlying(Enum e) noexcept
+{
+    return static_cast<std::underlying_type_t<Enum>>(e);
+}
+
 } // namespace fwd
 
-#endif // FORWARD_NONCOPYABLE_H
+#endif // FORWARD_UTILITY_H
