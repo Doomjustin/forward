@@ -1,0 +1,12 @@
+#ifndef FORWARD_BUILD_INFO_H
+#define FORWARD_BUILD_INFO_H
+
+namespace fwd {
+
+static constexpr const char* PROJECT_VERSION = "@PROJECT_VERSION@";
+static constexpr const char* PROJECT_DIR = "@PROJECT_SOURCE_DIR@";
+static constexpr const char* PROEJCT_NAME = "@PROJECT_NAME@"
+
+} // namespace fwd
+
+#endif // FORWARD_BUILD_INFO_H
