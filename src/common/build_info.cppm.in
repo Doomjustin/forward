@@ -1,0 +1,17 @@
+module;
+
+#include <filesystem>
+#include <string>
+
+export module fwd.build_info;
+
+
+namespace fwd {
+
+export const std::string ProjectVersion = "@PROJECT_VERSION@";
+export const std::filesystem::path ProjectDirectory = "@PROJECT_SOURCE_DIR@";
+
+export constexpr int OpenGLCoreVersionMajor = @OPENGL_CORE_VERSION_MAJOR@;
+export constexpr int OpenGLCoreVersionMinor = @OPENGL_CORE_VERSION_MAJOR@;
+
+} // namespace fwd
