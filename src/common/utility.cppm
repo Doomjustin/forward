@@ -1,6 +1,7 @@
 module;
 
 #include <algorithm>
+#include <cctype>
 #include <ranges>
 #include <string>
 
@@ -13,6 +14,7 @@ export
 [[nodiscard]]
 constexpr bool is_space(char p) noexcept
 {
+    // 模仿标准库的默认实现，但constexpr，benchmark确实要稍微快一点
     auto not_equal = [p] (auto q) { return p != q; };
     return !!(" \t\n\v\r\f" | std::views::drop_while(not_equal));
 };
@@ -50,6 +52,22 @@ constexpr std::string trim(const std::string_view in)
               ;
 
     return {view.begin(), view.end()};
+}
+
+export
+[[nodiscard("to_upper output")]]
+constexpr std::string to_upper(const std::string_view in)
+{
+    auto view = in | std::views::transform(std::toupper);
+    return { view.begin(), view.end() };
+}
+
+export
+[[nodiscard("to_lower output")]]
+constexpr std::string to_lower(const std::string_view in)
+{
+    auto view = in | std::views::transform(std::tolower);
+    return { view.begin(), view.end() };
 }
 
 } // namespace fwd
