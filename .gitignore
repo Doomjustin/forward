@@ -49,6 +49,6 @@ cmake-build-release/
 out/
 
 # customer
-**/BuildInfo.*
+**/build_info.cppm
 
 extern/
