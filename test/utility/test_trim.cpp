@@ -2,7 +2,6 @@
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
 
-#include <algorithm>
 #include <cctype>
 #include <ranges>
 #include <string>
@@ -11,7 +10,7 @@ import fwd.utility;
 
 static constexpr std::string trim_left_std(const std::string_view in)
 {
-    auto view = in | std::views::drop_while([] (char c) { return std::isspace(c); });
+    auto view = in | std::views::drop_while([] (const char c) { return std::isspace(c); });
 
     return { view.begin(), view.end() };
 }
@@ -20,6 +19,9 @@ static constexpr std::string trim_left_std(const std::string_view in)
 TEST_CASE("test trim")
 {
     const std::string base_str = "      123test f a s  ";
+    const std::string lower_case = "0123456789 \t\n\v\r\f ;:<>.,?|\\'`~\"!@#$%^&*(){}[]/_+-= abcdefghijklmnopqrstuvwxyz";
+    const std::string upper_case = "0123456789 \t\n\v\r\f ;:<>.,?|\\'`~\"!@#$%^&*(){}[]/_+-= ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 
     SECTION("trim left")
     {

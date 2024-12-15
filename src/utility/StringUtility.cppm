@@ -5,7 +5,7 @@ module;
 #include <ranges>
 #include <string>
 
-export module fwd.utility;
+export module fwd.utility:StringUtility;
 
 
 namespace fwd {
