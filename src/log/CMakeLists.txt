@@ -8,5 +8,13 @@ target_sources(${PROJECT_NAME}_LOG
     FILES
         export.cppm
         Logger.cppm
-        LogLevel.cppm
+        Level.cppm
+        Entry.cppm
+        SimpleLogger.cppm
+        Appender.cppm
+)
+
+target_link_libraries(${PROJECT_NAME}_LOG 
+    PUBLIC
+        fmt::fmt
 )

@@ -9,9 +9,11 @@ target_sources(${PROJECT_NAME}_LEVELDB
         LevelDB.cppm
         WriteBatch.cppm
         Coding.cppm
+        Log.cppm
 )
 
 target_link_libraries(${PROJECT_NAME}_LEVELDB
     PRIVATE
+        GSL
         fmt::fmt
 )
