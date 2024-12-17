@@ -50,6 +50,12 @@ cmake-build-release/
 out/
 
 # customer
+<<<<<<< HEAD
 **/build_info.cppm
+=======
+**/build_info.h
+**/BuildInfo.h
+
+>>>>>>> dev
 
 extern/
