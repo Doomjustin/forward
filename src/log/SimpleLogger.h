@@ -1,26 +1,17 @@
-module;
+#ifndef FORWARD_LOG_SIMPLE_LOGGER_H
+#define FORWARD_LOG_SIMPLE_LOGGER_H
 
-#include <algorithm>
-#include <memory>
-#include <string>
-#include <string_view>
+#include "Appender.h"
+#include "Log.h"
+
 #include <vector>
-
-export module fwd.log:SimpleLogger;
-
-import :Logger;
-import :Appender;
 
 
 namespace fwd::log {
 
 class SimpleLogger final: public Logger {
 public:
-    explicit SimpleLogger(const std::string_view name)
-    : name_{ name }
-    {
-        appenders_.push_back(std::make_unique<StdoutAppender>());
-    }
+    explicit SimpleLogger(const std::string_view name);
 
     SimpleLogger(const SimpleLogger& other) = delete;
     SimpleLogger& operator=(const SimpleLogger& other) = delete;
@@ -42,14 +33,7 @@ public:
     }
 
 protected:
-    void write(Entry entry) const override
-    {
-        if (entry.level > level_) return;
-
-        entry.logger_name = name_;
-        std::ranges::for_each(appenders_, 
-                        [&entry] (const auto& appender) { appender->append(entry); });
-    }
+    void write(Entry entry) const override;
 
 private:
     Level level_ = Level::Debug;
@@ -58,3 +42,5 @@ private:
 };
 
 } // namespace fwd::log
+
+#endif // FORWARD_LOG_SIMPLE_LOGGER_H

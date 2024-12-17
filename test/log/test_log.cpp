@@ -1,6 +1,6 @@
-#include <cstdlib>
+#include <fwd/Log.h>
 
-import fwd.log;
+#include <cstdlib>
 
 
 int main(int argc, char* argv[])

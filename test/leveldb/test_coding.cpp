@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <sstream>
 
-import fwd.leveldb.coding;
+#include "Coding.h"
 
 
 TEMPLATE_TEST_CASE("test coding", "[leveldb]", std::uint32_t, std::uint64_t)

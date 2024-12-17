@@ -50,7 +50,8 @@ cmake-build-release/
 out/
 
 # customer
-**/build_info.cppm
-**/BuildInfo.cppm
+**/build_info.h
+**/BuildInfo.h
+
 
 extern/

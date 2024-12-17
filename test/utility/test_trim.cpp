@@ -2,19 +2,21 @@
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
 
+#include <fwd/Utility.h>
+
 #include <cctype>
 #include <ranges>
 #include <string>
 
-import fwd.utility;
 
+/*
 static constexpr std::string trim_left_std(const std::string_view in)
 {
     auto view = in | std::views::drop_while([] (const char c) { return std::isspace(c); });
 
     return { view.begin(), view.end() };
 }
-
+*/
 
 TEST_CASE("test trim")
 {
@@ -38,10 +40,12 @@ TEST_CASE("test trim")
         REQUIRE_THAT(fwd::trim(base_str), Catch::Matchers::Equals("123test f a s"));
     }
     
-    BENCHMARK("std::isspace")
+    /*
+     BENCHMARK("std::isspace")
     {
         return trim_left_std(lower_case);
     };
+    */
 
     BENCHMARK("constexpr is space")
     {

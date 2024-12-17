@@ -1,11 +1,10 @@
-module;
+#ifndef FORWARD_BUILD_INFO_H
+#define FORWARD_BUILD_INFO_H
 
-#include <filesystem>
 #include <string>
+#include <filesystem>
 
-export module fwd.utility:BuildInfo;
 
-export
 namespace fwd {
 
 const std::string ProjectVersion = "@PROJECT_VERSION@";
@@ -15,3 +14,5 @@ constexpr int OpenGLCoreVersionMajor = @OPENGL_CORE_VERSION_MAJOR@;
 constexpr int OpenGLCoreVersionMinor = @OPENGL_CORE_VERSION_MAJOR@;
 
 } // namespace fwd
+
+#endif // FORWARD_BUILD_INFO_H

@@ -1,14 +1,17 @@
-module;
+#ifndef FORWARD_LEVELDB_CODING_H
+#define FORWARD_LEVELDB_CODING_H
+
+#include <gsl/gsl>
 
 #include <concepts>
 #include <cstdint>
 #include <istream>
 #include <ostream>
 
-export module fwd.leveldb.coding;
-
 
 namespace fwd::leveldb {
+
+namespace details {
 
 constexpr int VarintByteSize = 7;
 
@@ -23,17 +26,18 @@ constexpr bool is_not_last_byte(T value)
 template<std::unsigned_integral T>
 constexpr std::uint8_t get_varint_byte(T value)
 {
-    return value | NotLastByte;
+    return gsl::narrow_cast<std::uint8_t>(value | NotLastByte);
 }
 
-export
+} // namespace fwd::leveldb::details
+
+
 template<std::unsigned_integral T>
 void encode_fixed(std::ostream& os, T value)
 {
     os.write(reinterpret_cast<char*>(&value), sizeof(T));
 }
 
-export
 template<std::unsigned_integral T>
 T decode_fixed(std::istream& is)
 {
@@ -43,22 +47,20 @@ T decode_fixed(std::istream& is)
     return result;
 }
 
-export
 template<std::unsigned_integral T>
 void encode_varint(std::ostream& os, T value)
 {
     std::uint8_t byte{};
 
-    while (is_not_last_byte(value)) {
-        byte = get_varint_byte(value);
+    while (details::is_not_last_byte(value)) {
+        byte = details::get_varint_byte(value);
         os.write(reinterpret_cast<char*>(&byte), 1);
-        value >>= VarintByteSize;
+        value >>= details::VarintByteSize;
     }
 
     os.write(reinterpret_cast<char*>(&value), 1);
 }
 
-export
 template<std::unsigned_integral T>
 T decode_varint(std::istream& is)
 {
@@ -67,17 +69,18 @@ T decode_varint(std::istream& is)
     is.read(reinterpret_cast<char*>(&byte), 1);
 
     int shift = 0;
-    while (is_not_last_byte(byte)) {
-        constexpr int VARINT_BYTE_SIZE = 7;
-        constexpr int VARINT_BYTE_MAX = 0b01111111;
+    while (details::is_not_last_byte(byte)) {
+        constexpr int varint_byte_max = 0b01111111;
 
-        result |= ((byte & VARINT_BYTE_MAX) << shift);
+        result |= ((byte & varint_byte_max) << shift);
         is.read(reinterpret_cast<char*>(&byte), 1);
-        shift += VARINT_BYTE_SIZE;
+        shift += details::VarintByteSize;
     }
 
     result |= (byte << shift);
     return result;
 }
 
-} // namespace fwd::leveldb
+} // namespace fwd::leveldb 
+
+#endif // FORWARD_LEVELDB_CODING_H

@@ -1,19 +1,26 @@
-add_library(${PROJECT_NAME}_LEVELDB STATIC)
+add_library(${PROJECT_NAME}_LEVELDB 
+    OBJECT
+        Coding.h 
+        Record.cpp
+        WriteBatch.cpp
+        LevelDB.cpp
+        FileLogger.cpp
+        FileLogger.h
+        Log.cpp
+)
 
 add_library(fwd::leveldb ALIAS ${PROJECT_NAME}_LEVELDB)
-
-target_sources(${PROJECT_NAME}_LEVELDB
-    PUBLIC FILE_SET CXX_MODULES
-    FILES
-        export.cppm
-        LevelDB.cppm
-        WriteBatch.cppm
-        Coding.cppm
-        Log.cppm
+     
+target_include_directories(${PROJECT_NAME}_LEVELDB
+    PRIVATE
+        ${FWD_INTERNAL_INCLUDE_DIR}
+    INTERFACE
+        ${FWD_INCLUDE_DIR}
+        ${CMAKE_CURRENT_LIST_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}_LEVELDB
-    PRIVATE
+    PUBLIC
         GSL
         fmt::fmt
 )
