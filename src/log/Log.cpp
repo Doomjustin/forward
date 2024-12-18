@@ -20,4 +20,9 @@ Logger& default_logger() noexcept
     return *logger;
 }
 
+Level level() noexcept
+{
+    return default_logger().level();
+}
+
 } // fwd::log

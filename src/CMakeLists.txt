@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-add_subdirectory(common)
-=======
 set(FWD_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 set(FWD_INTERNAL_INCLUDE_DIR ${FWD_INCLUDE_DIR}/fwd)
 
@@ -38,4 +35,3 @@ target_link_libraries(${PROJECT_NAME}
         GSL
         fmt::fmt
 )
->>>>>>> dev

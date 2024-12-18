@@ -107,10 +107,7 @@ static void level(const Level value) noexcept
 }
 
 [[nodiscard]]
-constexpr Level level() noexcept
-{
-    return default_logger().level();
-}
+Level level() noexcept;
 
 template<typename... Args>
 void fatal(fmt::format_string<Args...> fmt, Args... args)
